@@ -19,3 +19,9 @@ stacks:
       - ./glance/compose.yaml
     labels:
       tier: apps
+
+  - name: media
+    compose:
+      - ./media/compose.yaml
+    labels:
+      tier: apps

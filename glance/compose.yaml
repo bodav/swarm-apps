@@ -13,6 +13,7 @@ services:
     networks:
       - main_app_net
     deploy:
+      replicas: 1
       restart_policy:
         condition: on-failure
 

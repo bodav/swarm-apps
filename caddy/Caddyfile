@@ -18,5 +18,20 @@
         reverse_proxy dozzle:8080
     }
 
-    reverse_proxy glance_glance:8080
+    @jellyfin host jellyfin.swarm.home
+    handle @jellyfin {
+        reverse_proxy jellyfin:8096
+    }
+
+    @metube host metube.swarm.home
+    handle @metube {
+        reverse_proxy metube:8081
+    }
+
+    @filebrowser host files.swarm.home
+    handle @filebrowser {
+        reverse_proxy filebrowser:80
+    }
+
+    reverse_proxy glance:8080
 }

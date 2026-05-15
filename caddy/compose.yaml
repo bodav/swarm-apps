@@ -8,7 +8,7 @@ networks:
     attachable: true
 
 configs:
-  caddyfile_v7:
+  caddyfile_v8:
     file: ./Caddyfile
 
 volumes:
@@ -27,7 +27,7 @@ services:
       - edge
       - app_net
     configs:
-      - source: caddyfile_v7
+      - source: caddyfile_v8
         target: /etc/caddy/Caddyfile
     volumes:
       - caddy_data:/data
@@ -52,6 +52,6 @@ services:
     networks:
       - app_net
     deploy:
-      replicas: 2
+      replicas: 1
       restart_policy:
         condition: on-failure

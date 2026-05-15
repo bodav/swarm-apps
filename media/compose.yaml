@@ -1,0 +1,46 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    volumes:
+      - jellyfin_config:/config
+      - media_data:/media
+    networks:
+      - main_app_net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  metube:
+    image: alexta69/metube:latest
+    environment:
+      - DOWNLOAD_DIR=/media/metube
+    volumes:
+      - media_data:/media
+    networks:
+      - main_app_net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    volumes:
+      - media_data:/srv
+    networks:
+      - main_app_net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  jellyfin_config:
+  media_data:
+    name: media_data
+
+networks:
+  main_app_net:
+    external: true
+    name: caddy_app_net
