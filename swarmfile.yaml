@@ -1,0 +1,21 @@
+defaults:
+  context: swarm.home
+
+stacks:
+  - name: caddy
+    compose:
+      - ./caddy/compose.yaml
+    labels:
+      tier: infrastructure
+
+  - name: dozzle
+    compose:
+      - ./dozzle/compose.yaml
+    labels:
+      tier: apps
+
+  - name: glance
+    compose:
+      - ./glance/compose.yaml
+    labels:
+      tier: apps

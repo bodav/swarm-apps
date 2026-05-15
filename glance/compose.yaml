@@ -1,0 +1,22 @@
+configs:
+  glance_config_v2:
+    file: ./glance.yml
+
+services:
+  glance:
+    image: glanceapp/glance:latest
+    configs:
+      - source: glance_config_v2
+        target: /app/config/glance.yml
+    volumes:
+      - /proc:/host/proc:ro
+    networks:
+      - main_app_net
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+networks:
+  main_app_net:
+    external: true
+    name: caddy_app_net

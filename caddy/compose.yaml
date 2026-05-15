@@ -1,0 +1,57 @@
+networks:
+  edge:
+    driver: overlay
+    attachable: true
+
+  app_net:
+    driver: overlay
+    attachable: true
+
+configs:
+  caddyfile_v7:
+    file: ./Caddyfile
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+services:
+  caddy:
+    image: caddy:2.8
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+    networks:
+      - edge
+      - app_net
+    configs:
+      - source: caddyfile_v7
+        target: /etc/caddy/Caddyfile
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+
+  whoami:
+    image: traefik/whoami:v1.10
+    networks:
+      - app_net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  echo:
+    image: hashicorp/http-echo:1.0.0
+    command: ["-text=hello from echo"]
+    networks:
+      - app_net
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure

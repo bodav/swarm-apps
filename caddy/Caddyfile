@@ -1,0 +1,22 @@
+{
+    auto_https off
+}
+
+:80 {
+    @whoami host whoami.swarm.home
+    handle @whoami {
+        reverse_proxy whoami:80
+    }
+
+    @echo host echo.swarm.home
+    handle @echo {
+        reverse_proxy echo:5678
+    }
+
+    @dozzle host log.swarm.home
+    handle @dozzle {
+        reverse_proxy dozzle:8080
+    }
+
+    reverse_proxy glance_glance:8080
+}

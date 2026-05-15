@@ -1,0 +1,26 @@
+pages:
+  - name: Lab Dashboard
+    columns:
+      - size: small
+        widgets:
+          - type: search
+            autofocus: true
+      - size: full
+        widgets:
+          - type: monitor
+            title: Debian Server
+            cache: 1m
+            labels:
+              - label: CPU
+                path: /host/proc/stat
+              - label: RAM
+                path: /host/proc/meminfo
+          - type: bookmarks
+            title: Services
+            groups:
+              - name: Apps
+                items:
+                  - name: Whoami
+                    url: http://whoami.swarm.home
+                  - name: Echo
+                    url: http://echo.swarm.home
