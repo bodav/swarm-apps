@@ -33,5 +33,10 @@
         reverse_proxy filebrowser:80
     }
 
+    @dockhand host docker.swarm.home
+    handle @dockhand {
+        reverse_proxy dockhand:3000
+    }
+
     reverse_proxy glance:8080
 }

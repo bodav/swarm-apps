@@ -8,7 +8,7 @@ networks:
     attachable: true
 
 configs:
-  caddyfile_v8:
+  caddyfile_v10:
     file: ./Caddyfile
 
 volumes:
@@ -27,7 +27,7 @@ services:
       - edge
       - app_net
     configs:
-      - source: caddyfile_v8
+      - source: caddyfile_v10
         target: /etc/caddy/Caddyfile
     volumes:
       - caddy_data:/data
